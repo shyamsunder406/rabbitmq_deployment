@@ -1,0 +1,37 @@
+asyncapi: '2.6.0'
+info:
+  title: Order Service
+  version: '1.0.0'
+  description: Documentation of the Order Service messaging API.
+servers:
+  rabbitmq:
+    url: amqp://guest:guest@rabbitmq:5672
+    protocol: amqp
+channels:
+  order/created:
+    subscribe:
+      summary: Receives when an order is created
+      message:
+        name: OrderCreated
+        payload:
+          type: object
+          properties:
+            orderId:
+              type: string
+            item:
+              type: string
+            quantity:
+              type: integer
+  order/status:
+    publish:
+      summary: Publishes order status updates
+      message:
+        name: OrderStatus
+        payload:
+          type: object
+          properties:
+            orderId:
+              type: string
+            status:
+              type: string
+
